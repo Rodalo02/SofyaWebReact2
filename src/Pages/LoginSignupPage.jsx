@@ -75,7 +75,7 @@ const LoginSignupPage = () => {
               </div>
               {isLogin && (
                 <div className="mt-1 flex justify-start">
-                  <p className="text-blue-600 hover:underline cursor-pointer text-start mt-1">
+                  <p onClick={() => navigate('/recuperar')} className="text-blue-600 hover:underline cursor-pointer text-start mt-1">
                     {t('forgotPassword')}
                   </p>
                 </div>

@@ -24,6 +24,14 @@ const resources = {
         "logout": "Logout",
         "home": "Home",
         "name": "Name",
+        "home": "Home",
+        "reset": "Reset Password",
+        "enviarCorreo": "Send confirmation email",
+        "emailSent": "Confirmation email sent",
+        "recoverInstructions": "Follow the instructions sent to your provided email address to recover your password.",
+        "invalidEmail": "Invalid Email",
+
+        
     }
   },
   es: {
@@ -47,7 +55,13 @@ const resources = {
         "settings": "Configuración",
         "logout": "Salir",
         "home": "Inicio",
-        "name": "Nombre"
+        "name": "Nombre",
+        "home": "Inicio",
+        "reset": "Recuperar contraseña",
+        "enviarCorreo": "Enviar Correo de Confirmación",
+        "emailSent": "Correo de Confirmación enviado",
+        "recoverInstructions": "Siga las instrucciones enviadas a su dirección de correo electrónico proporcionado para recuperar su contraseña.",
+        "invalidEmail": "Correo inválido",
     }
   }
 };
