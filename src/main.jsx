@@ -7,6 +7,8 @@ import MenuPage from './Pages/MenuPage.jsx'
 import './i18n';
 import RecuperarContra from './Pages/RecuperarContraPage.jsx'
 import CorreoEnviado from './Pages/CorreoEnviadoPage.jsx'
+import ClientesPage from './Pages/ClientesPage.jsx'
+import { AccountForm } from './Pages/CrearClientePage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,6 +18,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/recuperar" element={<RecuperarContra />} />
         <Route path="/confirmacion" element={<CorreoEnviado />} />
+        <Route path="/admin" element={<ClientesPage />} />
+        <Route path="/crear-cliente" element={<AccountForm />} />
       </Routes>
     </Router>
   </StrictMode>

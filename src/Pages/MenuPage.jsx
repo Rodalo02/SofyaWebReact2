@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChartLine, Dog, Handshake, MonitorCog, Search, SquareActivity, Cog, LogOut } from "lucide-react";
+import { ChartLine, Dog, Handshake, MonitorCog, Search, SquareActivity, Cog, LogOut, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "../i18n";
@@ -12,7 +12,7 @@ const MenuPage = () => {
   const Menus = [
     { title: t("recent"), icon: <SquareActivity className="w-5 h-5" /> },
     { title: t("search"), icon: <Search className="w-5 h-5" /> },
-    { title: t("admin"), gap: true, icon: <MonitorCog className="w-5 h-5" /> },
+    { title: t("client"), gap: true, icon: <Users className="w-5 h-5" />, path: "/admin" },
     { title: t("accounting"), icon: <ChartLine className="w-5 h-5" /> },
     { title: t("hr"), icon: <Handshake className="w-5 h-5" /> },
     { title: t("fatmagul"), icon: <Dog className="w-5 h-5" /> },
@@ -55,9 +55,6 @@ const MenuPage = () => {
             </li>
           ))}
         </ul>
-      </div>
-      <div className="h-screen flex-1 p-7">
-        <h1 className="text-2xl font-semibold">{t('home')}</h1>
       </div>
     </div>
   );
