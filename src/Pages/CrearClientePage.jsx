@@ -1,19 +1,28 @@
-import ClientesPage from "./ClientesPage";
+import ClientesPage from "./ListaClientesPage";
 import MenuPage from "./MenuPage";
+import { useNavigate } from "react-router-dom";
+import MenuCliente from "./MenuCliente";
 
 export const AccountForm = () => {
-    return (
-        <div className="flex h-screen">
-            <MenuPage />
-            <section className="py-1 bg-blueGray-50 flex-grow">
-                <div className="w-full lg:w-8/12 px-2 mx-auto mt-4">
-                    <div className="relative flex flex-col min-w-0 break-words w-full mb-4 shadow-lg rounded-lg bg-blueGray-100 border-0">
-                        <div className="rounded-t bg-white mb-0 px-4 py-4">
-                            <div className="text-center flex justify-between">
-                                <h6 className="text-blueGray-700 text-sm font-bold">Nuevo Cliente</h6>
-                            </div>
-                        </div>
-                        <div className="flex-auto px-2 lg:px-4 py-6 pt-0">
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <MenuPage />
+      <div className="flex-1 overflow-y-auto">
+        {/* Header fijo */}
+        <MenuCliente/>
+
+        {/* Contenido del formulario */}
+        <section className="py-6 px-4 bg-blueGray-50">
+          <div className="w-full lg:w-8/12 mx-auto">
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-4 shadow-lg rounded-lg bg-white border-0">
+              <div className="rounded-t bg-white px-4 py-4">
+                <div className="text-center flex justify-between">
+                  <h6 className="text-blueGray-700 text-sm font-bold">Nuevo Cliente</h6>
+                </div>
+              </div>
+              <div className="flex-auto px-4 py-6 pt-0">
                             <form>
                                 <div className="flex flex-wrap">
                                     {["Nombre", "Apellido Paterno", "Apellido Materno"].map((label, index) => (
@@ -95,6 +104,7 @@ export const AccountForm = () => {
                     </div>
                 </div>
             </section>
+        </div>
         </div>
     );
 };
