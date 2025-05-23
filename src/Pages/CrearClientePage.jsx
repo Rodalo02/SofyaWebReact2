@@ -91,7 +91,6 @@ export const AccountForm = () => {
   const validateForm = () => {
     const newErrors = {};
   
-    // Validaciones específicas
     if (!formData.nombre || formData.nombre.length > 250) {
       newErrors.nombre = "Nombre es obligatorio y debe tener máximo 250 caracteres.";
     }
