@@ -32,8 +32,8 @@ const LoginSignupPage = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">
       <div className="absolute top-4 left-4 flex items-center space-x-2">
-        <img src="src/assets/Sofya_logo.png" alt="Logo" className="h-15 w-15" />
-        <span className="text-3xl font-bold text-gray-800">sofya.pe</span>
+        <img src="src/assets/Sofya_logo.png" alt="Logo" className="h-8 w-8" />
+        <span className="text-xl font-bold text-gray-800">sofya.pe</span>
       </div>
       <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-8 md:p-16">
         <div className="w-full max-w-md">
