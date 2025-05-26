@@ -124,25 +124,27 @@ export const AccountForm = () => {
   };
 
   const renderInput = (label, name, width = "lg:w-4/12", required = false) => (
-    <div className={`w-full ${width} px-3`}>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+    <div className={`flex items-center ${width} px-3 mb-4`}>
+      <label className="w-1/3 text-sm font-medium text-gray-700">
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      <input
-        type="text"
-        name={name}
-        value={formData[name] || ""}
-        onChange={handleChange}
-        className={`w-full px-3 py-2 bg-white rounded-lg border ${
-          errors[name] 
-            ? "border-red-300 focus:ring-red-500 focus:border-red-500" 
-            : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        } shadow-sm transition duration-150 ease-in-out text-sm`}
-      />
-      {errors[name] && (
-        <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
-      )}
+      <div className="w-2/3">
+        <input
+          type="text"
+          name={name}
+          value={formData[name] || ""}
+          onChange={handleChange}
+          className={`w-full px-3 py-2 bg-white rounded-lg border ${
+            errors[name] 
+              ? "border-red-300 focus:ring-red-500 focus:border-red-500" 
+              : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          } shadow-sm transition duration-150 ease-in-out text-sm`}
+        />
+        {errors[name] && (
+          <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
+        )}
+      </div>
     </div>
   );
 
@@ -168,7 +170,7 @@ export const AccountForm = () => {
                   <div className="mb-6">
                     {renderInput("Nombre o Razón Social", "nombre", "lg:w-full", true)}
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {renderInput("Apellido Paterno", "apPaterno", "lg:w-full")}
                     {renderInput("Apellido Materno", "apMaterno", "lg:w-full")}
                     {renderInput("Primer Nombre", "nombres1", "lg:w-full")}
@@ -178,14 +180,14 @@ export const AccountForm = () => {
               ))}
 
               {renderSection("Documentación", (
-                <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {renderInput("Tipo Doc.", "tipoDocumento", "lg:w-full", true)}
-                  {renderInput("Número de Documento", "numeroDocumento", "lg:col-span-5", true)}
+                  {renderInput("Número de Documento", "numeroDocumento", "lg:w-full", true)}
                 </div>
               ))}
 
               {renderSection("Contacto", (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {renderInput("Correo Principal", "correo1", "lg:w-full")}
                   {renderInput("Correo Secundario", "correo2", "lg:w-full")}
                   {renderInput("Correo Adicional", "correo3", "lg:w-full")}
@@ -197,7 +199,7 @@ export const AccountForm = () => {
                   <div className="mb-4">
                     {renderInput("Dirección", "direccion", "lg:w-full")}
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {renderInput("País", "pais", "lg:w-full", true)}
                     {renderInput("Departamento", "departamento", "lg:w-full")}
                     {renderInput("Provincia", "provincia", "lg:w-full")}
@@ -214,12 +216,12 @@ export const AccountForm = () => {
                         {renderInput("Forma de Pago", "formaPago", "lg:w-full")}
                         {renderInput("Descuento", "descuento", "lg:w-full")}
                       </div>
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {renderInput("Tipo de Venta", "tipoVenta", "lg:w-full", true)}
                         {renderInput("Tipo de Cliente", "tipoCliente", "lg:w-full")}
                         {renderInput("CIIU", "ciiu", "lg:w-full")}
                       </div>
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {renderInput("Línea de Crédito 1", "lineaCredito1", "lg:w-full")}
                         {renderInput("Línea de Crédito 2", "lineaCredito2", "lg:w-full")}
                         {renderInput("Línea de Crédito 3", "lineaCredito3", "lg:w-full")}
