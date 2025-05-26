@@ -24,24 +24,29 @@ const MenuPage = () => {
     <div className="flex">
       <div
         className={`${
-          open ? "w-64" : "w-20"
-        } min-h-screen bg-gradient-to-b from-[#1a1f37] to-[#2c3154] relative duration-300`}
+          open ? "w-72" : "w-20"
+        } min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative duration-300 shadow-2xl`}
       >
-        <img
-          src="./src/assets/control.png"
-          className={`absolute cursor-pointer -right-3 top-9 w-7 bg-white
-           rounded-full border-2 border-[#1a1f37] ${!open && "rotate-180"}`}
+        <div
+          className={`absolute cursor-pointer -right-3 top-9 w-7 h-7 bg-white
+           rounded-full border-2 border-purple-500 flex items-center justify-center hover:scale-110 transition-transform duration-200 ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
-        />
+        >
+          <img
+            src="./src/assets/control.png"
+            className="w-4 h-4"
+            alt="control"
+          />
+        </div>
         
-        <div className="flex items-center gap-x-4 px-6 py-5 border-b border-gray-700/50">
+        <div className="flex items-center gap-x-4 px-6 py-5 border-b border-purple-500/30">
           <img
             src="./src/assets/Sofya_logo_mini.png"
-            className={`w-10 h-10 transition-all duration-500 ${open && "rotate-[360deg]"}`}
+            className={`w-12 h-12 transition-all duration-500 ${open && "rotate-[360deg]"}`}
             alt="Logo"
           />
           <h1
-            className={`text-xl font-bold text-white origin-left duration-300 ${
+            className={`text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-300 bg-clip-text text-transparent origin-left duration-300 ${
               !open && "scale-0"
             }`}
           >
@@ -49,35 +54,38 @@ const MenuPage = () => {
           </h1>
         </div>
 
-        <ul className="pt-6 px-4">
+        <ul className="pt-8 px-4">
           {Menus.map((menu, index) => (
             <li
               key={index}
               onClick={() => menu.path && navigate(menu.path)}
               className={`
                 group flex items-center gap-x-4 cursor-pointer
-                p-4 text-sm text-gray-300 rounded-xl
-                transition-all duration-200 ease-in-out
-                hover:bg-white/10 hover:text-white
+                p-4 text-sm rounded-xl
+                transition-all duration-300 ease-in-out
+                hover:bg-white/10 hover:translate-x-2
                 ${menu.gap ? "mt-9" : "mt-2"}
-                ${index === 0 && "bg-white/10 text-white"}
+                ${index === 0 ? "bg-gradient-to-r from-purple-500/20 to-transparent text-white" : "text-gray-300"}
               `}
             >
-              <span className="min-w-[24px]">{menu.icon}</span>
+              <span className={`min-w-[24px] transition-colors duration-300 ${index === 0 ? "text-purple-400" : "group-hover:text-purple-400"}`}>
+                {menu.icon}
+              </span>
               <span
                 className={`${
                   !open && "hidden"
-                } origin-left duration-200 whitespace-nowrap`}
+                } origin-left duration-200 whitespace-nowrap font-medium`}
               >
                 {menu.title}
               </span>
               
               {!open && (
                 <div className="
-                  absolute left-full rounded-md px-2 py-1 ml-6
-                  bg-gray-900 text-white text-sm
+                  absolute left-full rounded-md px-3 py-2 ml-6
+                  bg-slate-900 text-white text-sm
                   invisible opacity-20 -translate-x-3 transition-all
                   group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+                  backdrop-blur-sm bg-opacity-90 shadow-lg shadow-purple-500/20
                 ">
                   {menu.title}
                 </div>

@@ -6,7 +6,6 @@ import axios from "axios";
 
 export const AccountForm = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     nombre: "",
     apPaterno: "",
@@ -124,8 +123,8 @@ export const AccountForm = () => {
   };
 
   const renderInput = (label, name, width = "lg:w-4/12") => (
-    <div className={`w-full ${width} px-2`}>
-      <label className="block uppercase text-blueGray-600 text-[10px] font-bold mb-1 p-1">
+    <div className={`w-full ${width} px-3 mb-4`}>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
         {label}
       </label>
       <input
@@ -133,161 +132,136 @@ export const AccountForm = () => {
         name={name}
         value={formData[name] || ""}
         onChange={handleChange}
-        className={`border-1 px-2 py-2 text-xs bg-white rounded shadow focus:outline-none focus:ring w-full ${
-          errors[name] ? "border-red-500" : "border-zinc-400"
-        }`}
+        className={`w-full px-4 py-2.5 rounded-lg bg-gray-50 border
+          ${errors[name] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-purple-500"}
+          focus:border-transparent focus:outline-none focus:ring-2 transition-all duration-200
+          text-gray-900 text-sm placeholder-gray-400`}
       />
       {errors[name] && (
-        <p className="text-red-500 text-[10px] mt-1">{errors[name]}</p>
+        <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
       )}
     </div>
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
       <MenuPage />
       <div className="flex-1 overflow-y-auto">
         <MenuCliente />
-        <section className="py-6 px-4 bg-blueGray-50">
-          <div className="w-full lg:w-11/12 mx-auto">
-            <div className="bg-gray-100 shadow-lg rounded-lg border-0">
-              <div className="px-4 py-4 border-b">
-                <h6 className="text-blueGray-700 text-sm font-bold">Nuevo Cliente</h6>
+        <div className="p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-purple-900 to-slate-900">
+                <h2 className="text-xl font-semibold text-white">Nuevo Cliente</h2>
               </div>
-              <div className="px-4 py-6">
-                <form onSubmit={handleSave}>
-                  <div className="flex flex-col">
-                    {/* Campo izquierdo: Inputs */}
-                    <div>
-                      {/* Línea 1 */}
-                      <div className="flex-1">{renderInput("dclien", "nombre", "lg:w-full")}</div>
-
-                      {/* Línea 2 */}
-                      <div className="flex border-b pb-5">
-                        {renderInput("dappat", "apPaterno", "lg:w-3/12")}
-                        {renderInput("dapmat", "apMaterno", "lg:w-3/12")}
-                        {renderInput("dnombr1", "nombres1", "lg:w-3/12")}
-                        {renderInput("dnombr2", "nombres2", "lg:w-3/12")}
+              
+              <form onSubmit={handleSave} className="p-6">
+                <div className="space-y-8">
+                  {/* Información Principal */}
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6">Información Principal</h3>
+                    <div className="grid grid-cols-1 gap-6">
+                      {renderInput("Nombre / Razón Social", "nombre", "w-full")}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {renderInput("Apellido Paterno", "apPaterno", "w-full")}
+                        {renderInput("Apellido Materno", "apMaterno", "w-full")}
+                        {renderInput("Primer Nombre", "nombres1", "w-full")}
+                        {renderInput("Segundo Nombre", "nombres2", "w-full")}
                       </div>
+                    </div>
+                  </div>
 
-                      {/* Línea 3 */}
-                      <div className="flex flex-wrap">
-                        {renderInput("ctpdci", "tipoDocumento", "lg:w-2/10")}
-                        {renderInput("ndcide", "numeroDocumento", "lg:w-8/10")}
+                  {/* Documentos e Identidad */}
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6">Documentos e Identidad</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {renderInput("Tipo Documento", "tipoDocumento", "w-full")}
+                      {renderInput("Número Documento", "numeroDocumento", "w-full")}
+                    </div>
+                  </div>
+
+                  {/* Contacto */}
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6">Información de Contacto</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {renderInput("Correo Principal", "correo1", "w-full")}
+                      {renderInput("Correo Secundario", "correo2", "w-full")}
+                      {renderInput("Correo Adicional", "correo3", "w-full")}
+                    </div>
+                  </div>
+
+                  {/* Ubicación */}
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6">Ubicación</h3>
+                    <div className="grid grid-cols-1 gap-4">
+                      {renderInput("Dirección", "direccion", "w-full")}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {renderInput("País", "pais", "w-full")}
+                        {renderInput("Departamento", "departamento", "w-full")}
+                        {renderInput("Provincia", "provincia", "w-full")}
+                        {renderInput("Distrito", "distrito", "w-full")}
                       </div>
+                    </div>
+                  </div>
 
-                      {/* Línea 4 */}
-                      <div className="flex flex-wrap border-b pb-5">
-                        {renderInput("demail", "correo1")}
-                        {renderInput("demail2", "correo2")}
-                        {renderInput("demail3", "correo3")}
-                      </div>
-
-                      {/* Línea 5 */}
-                      <div className="flex flex-wrap">{renderInput("ddrcli", "direccion", "lg:w-full")}</div>
-
-                      {/* Línea 6 */}
-                      <div className="flex flex-wrap">
-                        {renderInput("cpaise", "pais", "lg:w-1/4")}
-                        {renderInput("cdepard", "departamento", "lg:w-1/4")}
-                        {renderInput("cprovid", "provincia", "lg:w-1/4")}
-                        {renderInput("cdistrd", "distrito", "lg:w-1/4")}
-                      </div>
-
-                      {/* Línea 7 */}
-                      <div className="flex flex-wrap">
-                        {renderInput("ntfcli", "telefono1", "lg:w-1/2")}
-                        {renderInput("ntfcli2", "telefono2", "lg:w-1/2")}
-                        {renderInput("dubigeo", "ubigeo")}
-                        {renderInput("dlongitud", "longitud")}
-                        {renderInput("dlatitud", "latitud")}
-                      </div>
-
-                      {/* Línea 8 */}
-                      <div className="flex flex-wrap p-3 m-4 rounded-lg bg-gray-200 border">
-                        <h5 className="lg:w-full mb-3 ml-2 font-bold">Clientes</h5>
-                        <div className="flex-col flex-1/2">
-                        {renderInput("drefer1", "contacto1", "lg:w-full")}
-                        {renderInput("", "contacto2", "lg:w-full")}
+                  {/* Configuración */}
+                  <div className="bg-gray-50 p-6 rounded-xl">
+                    <h3 className="text-lg font-medium text-gray-900 mb-6">Configuración</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <div className="grid grid-cols-1 gap-4">
+                          {renderInput("Forma de Pago", "formaPago", "w-full")}
+                          {renderInput("Descuento", "descuento", "w-full")}
+                          {renderInput("Tipo de Venta", "tipoVenta", "w-full")}
+                          {renderInput("Tipo de Cliente", "tipoCliente", "w-full")}
                         </div>
-                        <div className="flex-col flex-1/2 lg:w-full">
-                        {renderInput("dcargo1", "cargo1", "lg:w-full")}
-                        {renderInput("", "cargo2", "lg:w-full")}
-                        </div>
                       </div>
-
-                      {/* Campo derecho: Checkboxes y Linea 9 */}
-                    <div className="flex flex-wrap">
-                      <div className="flex flex-col flex-1">
-                      <div className="flex flex-2">
-                      {renderInput("ctppag", "formaPago", "lg:w-1/2")}
-                      {renderInput("pdscto", "descuento", "lg:w-1/2")}
-                      </div>
-                      <div className="flex flex-1">
-                      {renderInput("ctpvta", "tipoVenta")}
-                      {renderInput("ctpven", "tipoCliente")}
-                      {renderInput("cociiu", "ciiu")}
-                      </div>
-                      <div className="flex flex-1">
-                        {renderInput("cmonli", "lineaCredito1")}
-                        {renderInput("ilinea", "lineaCredito2")}
-                        {renderInput("dlinea", "lineaCredito3")}
-                      </div>
-                      </div>
-                    <div className="w-full lg:w-3/12 px-4 mt-4">
-                      <div className="bg-gray-200 border rounded-lg p-4">
-                        {[
-                          { label: "Extranjero", name: "extranjero" },
-                          { label: "Agente Retención", name: "agenteRetencion" },
-                          { label: "Activo", name: "activo" },
-                          { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
-                        ].map((item) => (
-                          <div key={item.name} className="mb-0.5 mt-0.5 p-1">
-                            <label className="inline-flex items-center text-xs">
+                      <div className="bg-white p-6 rounded-lg shadow-sm">
+                        <h4 className="font-medium text-gray-900 mb-4">Opciones Adicionales</h4>
+                        <div className="space-y-3">
+                          {[
+                            { label: "Cliente Extranjero", name: "extranjero" },
+                            { label: "Agente de Retención", name: "agenteRetencion" },
+                            { label: "Cliente Activo", name: "activo" },
+                            { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
+                          ].map((item) => (
+                            <label key={item.name} className="flex items-center space-x-3">
                               <input
                                 type="checkbox"
                                 name={item.name}
                                 checked={formData[item.name]}
                                 onChange={handleChange}
-                                className="form-checkbox h-4 w-4 text-blue-600"
+                                className="form-checkbox h-5 w-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
                               />
-                              <span className="ml-2">{item.label}</span>
+                              <span className="text-gray-700">{item.label}</span>
                             </label>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    </div>
                   </div>
+                </div>
 
-                      {/* Línea 13 */}
-                      <div className="flex flex-wrap">{renderInput("dcomer", "nombreComercial", "lg:w-full")}</div>
-
-                      {/* Línea 14 */}
-                      <div className="flex flex-wrap">
-                        {renderInput("ssunat", "estadoSunat", "lg:w-1/2")}
-                        {renderInput("scondi", "condicionSunat", "lg:w-1/2")}
-                      </div>
-                    </div>
-
-                  {/* Botones */}
-                  <div className="flex justify-end mt-6">
-                    <button type="submit" className="bg-blue-500 text-white font-bold py-2 px-4 m-1 rounded shadow hover:bg-blue-600">
-                      Guardar
-                    </button>
-                    <button
-                      type="button"
-                      className="bg-black text-white font-bold py-2 px-4 m-1 rounded shadow hover:bg-black"
-                      onClick={() => navigate("/crear-cliente")}
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </form>
-              </div>
+                {/* Botones de Acción */}
+                <div className="mt-8 flex justify-end space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/crear-cliente")}
+                    className="px-6 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-medium rounded-lg hover:from-purple-700 hover:to-purple-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 transform hover:scale-105"
+                  >
+                    Guardar Cliente
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
