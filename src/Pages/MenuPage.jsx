@@ -25,7 +25,7 @@ const MenuPage = () => {
       <div 
         className={`${
           open ? "w-72" : "w-20"
-        } min-h-screen bg-gradient-to-b from-blue-800 to-blue-600 p-5 pt-8 relative duration-300 shadow-xl`}
+        } min-h-screen bg-[#8FBFF6] p-5 pt-8 relative duration-300 shadow-lg`}
       >
         <img
           src="./src/assets/control.png"
@@ -38,7 +38,7 @@ const MenuPage = () => {
             src="./src/assets/Sofya_logo_mini.png"
             className={`cursor-pointer duration-500 ${open && "rotate-[10deg]"}`}
           />
-          <h1 className={`text-white origin-left font-bold text-xl duration-200 ${!open && "scale-0"}`}>
+          <h1 className={`text-[#002D61] origin-left font-bold text-xl duration-200 ${!open && "scale-0"}`}>
             Sofya
           </h1>
         </div>
@@ -46,9 +46,9 @@ const MenuPage = () => {
           {Menus.map((Menu, index) => (
             <li
               key={index}
-              className={`flex rounded-lg p-3 cursor-pointer hover:bg-blue-700/50 text-white text-sm items-center gap-x-4 
+              className={`flex rounded-lg p-3 cursor-pointer hover:bg-[#558CCB] text-[#002D61] text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} 
-              ${index === 0 && "bg-blue-700/30"}
+              ${index === 0 && "bg-[#558CCB]/30"}
               transition-all duration-200 ease-in-out`}
               onClick={() => Menu.path && navigate(Menu.path)}
             >
