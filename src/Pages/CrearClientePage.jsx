@@ -3,10 +3,10 @@ import MenuCliente from "./MenuCliente";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { Save, X } from "lucide-react";
 
 export const AccountForm = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     apPaterno: "",
@@ -123,170 +123,171 @@ export const AccountForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const renderInput = (label, name, width = "lg:w-4/12", required = false) => (
-    <div className={`flex items-center ${width} px-3 mb-4`}>
-      <label className="w-1/3 text-sm font-medium text-gray-700">
+  const renderInput = (label, name, width = "lg:w-4/12") => (
+    <div className={`w-full ${width} px-2`}>
+      <label className="block uppercase text-blueGray-600 text-[10px] font-bold mb-1 p-1">
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      <div className="w-2/3">
-        <input
-          type="text"
-          name={name}
-          value={formData[name] || ""}
-          onChange={handleChange}
-          className={`w-full px-3 py-2 bg-white rounded-lg border ${
-            errors[name] 
-              ? "border-red-300 focus:ring-red-500 focus:border-red-500" 
-              : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          } shadow-sm transition duration-150 ease-in-out text-sm`}
-        />
-        {errors[name] && (
-          <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
-        )}
-      </div>
-    </div>
-  );
-
-  const renderSection = (title, children) => (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-6">
-      <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-        <h3 className="text-sm font-medium text-gray-900">{title}</h3>
-      </div>
-      <div className="p-4">{children}</div>
+      <input
+        type="text"
+        name={name}
+        value={formData[name] || ""}
+        onChange={handleChange}
+        className={`border-1 px-2 py-2 text-xs bg-white rounded shadow focus:outline-none focus:ring w-full ${
+          errors[name] ? "border-red-500" : "border-zinc-400"
+        }`}
+      />
+      {errors[name] && (
+        <p className="text-red-500 text-[10px] mt-1">{errors[name]}</p>
+      )}
     </div>
   );
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-100">
+    <div className="flex h-screen overflow-hidden">
       <MenuPage />
       <div className="flex-1 overflow-y-auto">
         <MenuCliente />
-        <div className="py-6 px-8">
-          <div className="max-w-7xl mx-auto">
-            <form onSubmit={handleSave} className="space-y-6">
-              {renderSection("Información Principal", (
-                <>
-                  <div className="mb-6">
-                    {renderInput("Nombre o Razón Social", "nombre", "lg:w-full", true)}
-                  </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {renderInput("Apellido Paterno", "apPaterno", "lg:w-full")}
-                    {renderInput("Apellido Materno", "apMaterno", "lg:w-full")}
-                    {renderInput("Primer Nombre", "nombres1", "lg:w-full")}
-                    {renderInput("Segundo Nombre", "nombres2", "lg:w-full")}
-                  </div>
-                </>
-              ))}
+        <section className="py-6 px-4 bg-blueGray-50">
+          <div className="w-full lg:w-11/12 mx-auto">
+            <div className="bg-gray-100 shadow-lg rounded-lg border-0">
+              <div className="px-4 py-4 border-b">
+                <h6 className="text-blueGray-700 text-sm font-bold">Nuevo Cliente</h6>
+              </div>
+              <div className="px-4 py-6">
+                <form onSubmit={handleSave}>
+                  <div className="flex flex-col">
+                    {/* Campo izquierdo: Inputs */}
+                    <div>
+                      {/* Línea 1 */}
+                      <div className="flex-1">{renderInput("dclien", "nombre", "lg:w-full")}</div>
 
-              {renderSection("Documentación", (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {renderInput("Tipo Doc.", "tipoDocumento", "lg:w-full", true)}
-                  {renderInput("Número de Documento", "numeroDocumento", "lg:w-full", true)}
-                </div>
-              ))}
-
-              {renderSection("Contacto", (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {renderInput("Correo Principal", "correo1", "lg:w-full")}
-                  {renderInput("Correo Secundario", "correo2", "lg:w-full")}
-                  {renderInput("Correo Adicional", "correo3", "lg:w-full")}
-                </div>
-              ))}
-
-              {renderSection("Ubicación", (
-                <>
-                  <div className="mb-4">
-                    {renderInput("Dirección", "direccion", "lg:w-full")}
-                  </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {renderInput("País", "pais", "lg:w-full", true)}
-                    {renderInput("Departamento", "departamento", "lg:w-full")}
-                    {renderInput("Provincia", "provincia", "lg:w-full")}
-                    {renderInput("Distrito", "distrito", "lg:w-full")}
-                  </div>
-                </>
-              ))}
-
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div className="lg:col-span-3">
-                  {renderSection("Información Comercial", (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {renderInput("Forma de Pago", "formaPago", "lg:w-full")}
-                        {renderInput("Descuento", "descuento", "lg:w-full")}
+                      {/* Línea 2 */}
+                      <div className="flex border-b pb-5">
+                        {renderInput("dappat", "apPaterno", "lg:w-3/12")}
+                        {renderInput("dapmat", "apMaterno", "lg:w-3/12")}
+                        {renderInput("dnombr1", "nombres1", "lg:w-3/12")}
+                        {renderInput("dnombr2", "nombres2", "lg:w-3/12")}
                       </div>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {renderInput("Tipo de Venta", "tipoVenta", "lg:w-full", true)}
-                        {renderInput("Tipo de Cliente", "tipoCliente", "lg:w-full")}
-                        {renderInput("CIIU", "ciiu", "lg:w-full")}
+
+                      {/* Línea 3 */}
+                      <div className="flex flex-wrap">
+                        {renderInput("ctpdci", "tipoDocumento", "lg:w-2/10")}
+                        {renderInput("ndcide", "numeroDocumento", "lg:w-8/10")}
                       </div>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {renderInput("Línea de Crédito 1", "lineaCredito1", "lg:w-full")}
-                        {renderInput("Línea de Crédito 2", "lineaCredito2", "lg:w-full")}
-                        {renderInput("Línea de Crédito 3", "lineaCredito3", "lg:w-full")}
+
+                      {/* Línea 4 */}
+                      <div className="flex flex-wrap border-b pb-5">
+                        {renderInput("demail", "correo1")}
+                        {renderInput("demail2", "correo2")}
+                        {renderInput("demail3", "correo3")}
+                      </div>
+
+                      {/* Línea 5 */}
+                      <div className="flex flex-wrap">{renderInput("ddrcli", "direccion", "lg:w-full")}</div>
+
+                      {/* Línea 6 */}
+                      <div className="flex flex-wrap">
+                        {renderInput("cpaise", "pais", "lg:w-1/4")}
+                        {renderInput("cdepard", "departamento", "lg:w-1/4")}
+                        {renderInput("cprovid", "provincia", "lg:w-1/4")}
+                        {renderInput("cdistrd", "distrito", "lg:w-1/4")}
+                      </div>
+
+                      {/* Línea 7 */}
+                      <div className="flex flex-wrap">
+                        {renderInput("ntfcli", "telefono1", "lg:w-1/2")}
+                        {renderInput("ntfcli2", "telefono2", "lg:w-1/2")}
+                        {renderInput("dubigeo", "ubigeo")}
+                        {renderInput("dlongitud", "longitud")}
+                        {renderInput("dlatitud", "latitud")}
+                      </div>
+
+                      {/* Línea 8 */}
+                      <div className="flex flex-wrap p-3 m-4 rounded-lg bg-gray-200 border">
+                        <h5 className="lg:w-full mb-3 ml-2 font-bold">Clientes</h5>
+                        <div className="flex-col flex-1/2">
+                        {renderInput("drefer1", "contacto1", "lg:w-full")}
+                        {renderInput("", "contacto2", "lg:w-full")}
+                        </div>
+                        <div className="flex-col flex-1/2 lg:w-full">
+                        {renderInput("dcargo1", "cargo1", "lg:w-full")}
+                        {renderInput("", "cargo2", "lg:w-full")}
+                        </div>
+                      </div>
+
+                      {/* Campo derecho: Checkboxes y Linea 9 */}
+                    <div className="flex flex-wrap">
+                      <div className="flex flex-col flex-1">
+                      <div className="flex flex-2">
+                      {renderInput("ctppag", "formaPago", "lg:w-1/2")}
+                      {renderInput("pdscto", "descuento", "lg:w-1/2")}
+                      </div>
+                      <div className="flex flex-1">
+                      {renderInput("ctpvta", "tipoVenta")}
+                      {renderInput("ctpven", "tipoCliente")}
+                      {renderInput("cociiu", "ciiu")}
+                      </div>
+                      <div className="flex flex-1">
+                        {renderInput("cmonli", "lineaCredito1")}
+                        {renderInput("ilinea", "lineaCredito2")}
+                        {renderInput("dlinea", "lineaCredito3")}
+                      </div>
+                      </div>
+                    <div className="w-full lg:w-3/12 px-4 mt-4">
+                      <div className="bg-gray-200 border rounded-lg p-4">
+                        {[
+                          { label: "Extranjero", name: "extranjero" },
+                          { label: "Agente Retención", name: "agenteRetencion" },
+                          { label: "Activo", name: "activo" },
+                          { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
+                        ].map((item) => (
+                          <div key={item.name} className="mb-0.5 mt-0.5 p-1">
+                            <label className="inline-flex items-center text-xs">
+                              <input
+                                type="checkbox"
+                                name={item.name}
+                                checked={formData[item.name]}
+                                onChange={handleChange}
+                                className="form-checkbox h-4 w-4 text-blue-600"
+                              />
+                              <span className="ml-2">{item.label}</span>
+                            </label>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-
-                <div className="lg:col-span-1">
-                  {renderSection("Configuración", (
-                    <div className="space-y-3">
-                      {[
-                        { label: "Extranjero", name: "extranjero" },
-                        { label: "Agente Retención", name: "agenteRetencion" },
-                        { label: "Activo", name: "activo" },
-                        { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
-                      ].map((item) => (
-                        <label key={item.name} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50">
-                          <input
-                            type="checkbox"
-                            name={item.name}
-                            checked={formData[item.name]}
-                            onChange={handleChange}
-                            className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-                          />
-                          <span className="text-sm text-gray-700">{item.label}</span>
-                        </label>
-                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {renderSection("Información SUNAT", (
-                <>
-                  <div className="mb-4">
-                    {renderInput("Nombre Comercial", "nombreComercial", "lg:w-full")}
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {renderInput("Estado SUNAT", "estadoSunat", "lg:w-full")}
-                    {renderInput("Condición SUNAT", "condicionSunat", "lg:w-full")}
-                  </div>
-                </>
-              ))}
 
-              <div className="flex justify-end space-x-4 sticky bottom-0 bg-white p-4 border-t shadow-lg">
-                <button
-                  type="button"
-                  onClick={() => navigate("/crear-cliente")}
-                  className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  <X className="h-4 w-4 mr-2" />
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  <Save className="h-4 w-4 mr-2" />
-                  Guardar Cliente
-                </button>
+                      {/* Línea 13 */}
+                      <div className="flex flex-wrap">{renderInput("dcomer", "nombreComercial", "lg:w-full")}</div>
+
+                      {/* Línea 14 */}
+                      <div className="flex flex-wrap">
+                        {renderInput("ssunat", "estadoSunat", "lg:w-1/2")}
+                        {renderInput("scondi", "condicionSunat", "lg:w-1/2")}
+                      </div>
+                    </div>
+
+                  {/* Botones */}
+                  <div className="flex justify-end mt-6">
+                    <button type="submit" className="bg-blue-500 text-white font-bold py-2 px-4 m-1 rounded shadow hover:bg-blue-600">
+                      Guardar
+                    </button>
+                    <button
+                      type="button"
+                      className="bg-black text-white font-bold py-2 px-4 m-1 rounded shadow hover:bg-black"
+                      onClick={() => navigate("/crear-cliente")}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
