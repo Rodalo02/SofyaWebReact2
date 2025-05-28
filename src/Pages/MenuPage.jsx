@@ -40,10 +40,10 @@ const MenuPage = () => {
         </div>
         
         <div className="flex items-center gap-x-4 px-6 py-5 border-b border-blue-500/30">
-          <div className={`min-w-[48px] flex items-center justify-center ${!open && 'w-8 h-8'}`}>
+          <div className="w-12 h-12 flex items-center justify-center">
             <img
               src="./src/assets/Sofya_logo_mini.png"
-              className={`object-contain transition-all duration-500 ${open ? 'w-12 h-12' : 'w-8 h-8'}`}
+              className="w-12 h-12 object-contain"
               alt="Logo"
             />
           </div>
