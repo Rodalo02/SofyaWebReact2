@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Save, X } from 'lucide-react';
+import { useMenu } from "../components/MenuContext";
 
 export const AccountForm = () => {
   const navigate = useNavigate();
+  const { open } = useMenu();
   const [formData, setFormData] = useState({
     nombre: "",
     apPaterno: "",
@@ -124,8 +126,8 @@ export const AccountForm = () => {
   };
 
   const renderInput = (label, name, width = "lg:w-4/12") => (
-    <div className={`w-full ${width} px-3 mb-4`}>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+    <div className={`w-full ${width} px-2 mb-3`}>
+      <label className="block text-xs font-medium text-gray-700 mb-1">
         {label}
       </label>
       <input
@@ -133,10 +135,10 @@ export const AccountForm = () => {
         name={name}
         value={formData[name] || ""}
         onChange={handleChange}
-        className={`w-full px-4 py-2.5 rounded-lg bg-gray-50 border
-          ${errors[name] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-purple-500"}
-          focus:border-transparent focus:outline-none focus:ring-2 transition-all duration-200
-          text-gray-900 text-sm placeholder-gray-400`}
+        className={`w-full px-3 py-1.5 rounded-md bg-gray-50 border text-sm
+          ${errors[name] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}
+          focus:border-transparent focus:outline-none focus:ring-1 transition-all duration-200
+          text-gray-900 placeholder-gray-400`}
       />
       {errors[name] && (
         <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
@@ -149,22 +151,22 @@ export const AccountForm = () => {
       <MenuPage />
       <div className="flex-1 overflow-hidden flex flex-col">
         <MenuCliente />
-        <div className="flex-1 overflow-y-auto pb-20">
-          <div className="p-8">
+        <div className="flex-1 overflow-y-auto pb-16">
+          <div className="p-4">
             <div className="max-w-7xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-purple-900 to-slate-900">
-                  <h2 className="text-xl font-semibold text-white">Nuevo Cliente</h2>
+              <div className="bg-white rounded-lg shadow-sm">
+                <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-blue-900 to-sky-800">
+                  <h2 className="text-lg font-medium text-white">Nuevo Cliente</h2>
                 </div>
                 
-                <form onSubmit={handleSave} className="p-6">
-                  <div className="space-y-8">
+                <form onSubmit={handleSave} className="p-4">
+                  <div className="space-y-4">
                     {/* Información Principal */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Información Principal</h3>
-                      <div className="grid grid-cols-1 gap-6">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Información Principal</h3>
+                      <div className="grid grid-cols-1 gap-4">
                         {renderInput("Nombre / Razón Social", "nombre", "w-full")}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                           {renderInput("Apellido Paterno", "apPaterno", "w-full")}
                           {renderInput("Apellido Materno", "apMaterno", "w-full")}
                           {renderInput("Primer Nombre", "nombres1", "w-full")}
@@ -174,18 +176,18 @@ export const AccountForm = () => {
                     </div>
 
                     {/* Documentos e Identidad */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Documentos e Identidad</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Documentos e Identidad</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {renderInput("Tipo Documento", "tipoDocumento", "w-full")}
                         {renderInput("Número Documento", "numeroDocumento", "w-full")}
                       </div>
                     </div>
 
                     {/* Contacto */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Información de Contacto</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Información de Contacto</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {renderInput("Correo Principal", "correo1", "w-full")}
                         {renderInput("Correo Secundario", "correo2", "w-full")}
                         {renderInput("Correo Adicional", "correo3", "w-full")}
@@ -193,22 +195,22 @@ export const AccountForm = () => {
                     </div>
 
                     {/* Ubicación */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Ubicación</h3>
-                      <div className="grid grid-cols-1 gap-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Ubicación</h3>
+                      <div className="grid grid-cols-1 gap-3">
                         {renderInput("Dirección", "direccion", "w-full")}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                           {renderInput("País", "pais", "w-full")}
                           {renderInput("Departamento", "departamento", "w-full")}
                           {renderInput("Provincia", "provincia", "w-full")}
                           {renderInput("Distrito", "distrito", "w-full")}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           {renderInput("Ubigeo", "ubigeo", "w-full")}
                           {renderInput("Longitud", "longitud", "w-full")}
                           {renderInput("Latitud", "latitud", "w-full")}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           {renderInput("Teléfono 1", "telefono1", "w-full")}
                           {renderInput("Teléfono 2", "telefono2", "w-full")}
                         </div>
@@ -216,9 +218,9 @@ export const AccountForm = () => {
                     </div>
 
                     {/* Contactos */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Contactos</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Contactos</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           {renderInput("Contacto 1", "contacto1", "w-full")}
                           {renderInput("Cargo 1", "cargo1", "w-full")}
@@ -231,11 +233,11 @@ export const AccountForm = () => {
                     </div>
 
                     {/* Configuración */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Configuración</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Configuración</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <div className="grid grid-cols-1 gap-4">
+                          <div className="grid grid-cols-1 gap-3">
                             {renderInput("Forma de Pago", "formaPago", "w-full")}
                             {renderInput("Descuento", "descuento", "w-full")}
                             {renderInput("Tipo de Venta", "tipoVenta", "w-full")}
@@ -243,24 +245,24 @@ export const AccountForm = () => {
                             {renderInput("CIIU", "ciiu", "w-full")}
                           </div>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm">
-                          <h4 className="font-medium text-gray-900 mb-4">Opciones Adicionales</h4>
-                          <div className="space-y-3">
+                        <div className="bg-white p-4 rounded-md shadow-sm">
+                          <h4 className="text-sm font-medium text-gray-900 mb-3">Opciones Adicionales</h4>
+                          <div className="space-y-2">
                             {[
                               { label: "Cliente Extranjero", name: "extranjero" },
                               { label: "Agente de Retención", name: "agenteRetencion" },
                               { label: "Cliente Activo", name: "activo" },
                               { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
                             ].map((item) => (
-                              <label key={item.name} className="flex items-center space-x-3">
+                              <label key={item.name} className="flex items-center space-x-2">
                                 <input
                                   type="checkbox"
                                   name={item.name}
                                   checked={formData[item.name]}
                                   onChange={handleChange}
-                                  className="form-checkbox h-5 w-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                                  className="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                                 />
-                                <span className="text-gray-700">{item.label}</span>
+                                <span className="text-sm text-gray-700">{item.label}</span>
                               </label>
                             ))}
                           </div>
@@ -269,15 +271,15 @@ export const AccountForm = () => {
                     </div>
 
                     {/* Información Adicional */}
-                    <div className="bg-gray-50 p-6 rounded-xl">
-                      <h3 className="text-lg font-medium text-gray-900 mb-6">Información Adicional</h3>
-                      <div className="grid grid-cols-1 gap-4">
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Información Adicional</h3>
+                      <div className="grid grid-cols-1 gap-3">
                         {renderInput("Nombre Comercial", "nombreComercial", "w-full")}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           {renderInput("Estado SUNAT", "estadoSunat", "w-full")}
                           {renderInput("Condición SUNAT", "condicionSunat", "w-full")}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           {renderInput("Línea de Crédito 1", "lineaCredito1", "w-full")}
                           {renderInput("Línea de Crédito 2", "lineaCredito2", "w-full")}
                           {renderInput("Línea de Crédito 3", "lineaCredito3", "w-full")}
@@ -292,20 +294,20 @@ export const AccountForm = () => {
         </div>
 
         {/* Botones fijos en la parte inferior */}
-        <div className="fixed bottom-0 right-0 left-0 bg-white border-t border-gray-200 p-4 flex justify-end space-x-4" style={{ marginLeft: open ? "18rem" : "5rem" }}>
+        <div className="fixed bottom-0 right-0 left-0 bg-white border-t border-gray-200 p-3 flex justify-end space-x-3" style={{ marginLeft: open ? "18rem" : "5rem" }}>
           <button
             type="button"
             onClick={() => navigate("/crear-cliente")}
-            className="px-4 py-2 flex items-center space-x-2 text-sm border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200"
+            className="px-3 py-1.5 flex items-center space-x-2 text-xs border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200"
           >
-            <X size={16} />
+            <X size={14} />
             <span>Cancelar</span>
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 flex items-center space-x-2 text-sm bg-gradient-to-r from-purple-600 to-purple-800 text-white font-medium rounded-lg hover:from-purple-700 hover:to-purple-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200"
+            className="px-3 py-1.5 flex items-center space-x-2 text-xs bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-md hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
           >
-            <Save size={16} />
+            <Save size={14} />
             <span>Guardar</span>
           </button>
         </div>
