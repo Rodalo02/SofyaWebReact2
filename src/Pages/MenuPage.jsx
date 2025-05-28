@@ -40,11 +40,13 @@ const MenuPage = () => {
         </div>
         
         <div className="flex items-center gap-x-4 px-6 py-5 border-b border-blue-500/30">
-          <img
-            src="./src/assets/Sofya_logo_mini.png"
-            className={`w-12 h-12 transition-all duration-500 ${open && "rotate-[360deg]"}`}
-            alt="Logo"
-          />
+          <div className={`min-w-[48px] flex items-center justify-center ${!open && 'w-8 h-8'}`}>
+            <img
+              src="./src/assets/Sofya_logo_mini.png"
+              className={`object-contain transition-all duration-500 ${open ? 'w-12 h-12' : 'w-8 h-8'}`}
+              alt="Logo"
+            />
+          </div>
           <h1
             className={`text-2xl font-bold bg-gradient-to-r from-blue-400 to-sky-300 bg-clip-text text-transparent origin-left duration-300 ${
               !open && "scale-0"
