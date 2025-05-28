@@ -14,44 +14,51 @@ const MenuCliente = () => {
           <h1 className="text-2xl font-semibold text-gray-800 mb-6">Clientes</h1>
 
           {/* Menú tipo Word */}
-          <div className="flex space-x-3 items-start bg-white p-1 rounded-xl shadow-md">
-            {/* Botón grande "Nuevo" con texto */}
-            <div
-              onClick={() => navigate('/crear-cliente')}
-              className="cursor-pointer hover:scale-110 transition flex flex-col items-center"
-              title="Nuevo Cliente"
-            >
-              <Plus className="w-16 h-16 text-blue-700" />
-              <span className="text-sm text-gray-700 font-bold mt-1">Nuevo</span>
-            </div>
-
-            {/* Botones pequeños en vertical */}
-            <div className="flex flex-col space-y-4 mt-2">
-              {/* Buscar */}
-              <div
-                onClick={() => navigate('/buscar-cliente')}
-                className="cursor-pointer hover:scale-110 transition flex justify-center"
-                title="Buscar"
-              >
-                <Search className="w-4.5 h-4.5 text-gray-700" />
+          <div className="flex space-x-3 items-start bg-white p-3 rounded-xl shadow-sm">
+            <div className="flex space-x-2">
+              {/* Todos los botones del mismo tamaño */}
+              <div className="flex flex-col items-center space-y-1">
+                <button
+                  onClick={() => navigate('/crear-cliente')}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors duration-200"
+                  title="Nuevo Cliente"
+                >
+                  <Plus className="w-5 h-5 text-blue-600" />
+                </button>
+                <span className="text-xs text-gray-600 font-medium">Nuevo</span>
               </div>
 
-              {/* Editar */}
-              <div
-                onClick={() => navigate('/buscar-cliente')}
-                className="cursor-pointer hover:scale-110 transition flex justify-center"
-                title="Editar"
-              >
-                <Pencil className="w-4.5 h-4.5 text-gray-700" />
+              <div className="flex flex-col items-center space-y-1">
+                <button
+                  onClick={() => navigate('/buscar-cliente')}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                  title="Buscar"
+                >
+                  <Search className="w-5 h-5 text-gray-600" />
+                </button>
+                <span className="text-xs text-gray-600 font-medium">Buscar</span>
               </div>
 
-              {/* Eliminar */}
-              <div
-                onClick={() => navigate('/buscar-cliente')}
-                className="cursor-pointer hover:scale-110 transition flex justify-center"
-                title="Eliminar"
-              >
-                <X className="w-4.5 h-4.5 text-gray-700" />
+              <div className="flex flex-col items-center space-y-1">
+                <button
+                  onClick={() => navigate('/buscar-cliente')}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                  title="Editar"
+                >
+                  <Pencil className="w-5 h-5 text-gray-600" />
+                </button>
+                <span className="text-xs text-gray-600 font-medium">Editar</span>
+              </div>
+
+              <div className="flex flex-col items-center space-y-1">
+                <button
+                  onClick={() => navigate('/buscar-cliente')}
+                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                  title="Eliminar"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+                <span className="text-xs text-gray-600 font-medium">Eliminar</span>
               </div>
             </div>
           </div>
