@@ -245,14 +245,14 @@ export const AccountForm = () => {
                             {renderInput("CIIU", "ciiu", "w-full")}
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
                           {[
                             { label: "Cliente Extranjero", name: "extranjero" },
                             { label: "Agente de Retención", name: "agenteRetencion" },
                             { label: "Cliente Activo", name: "activo" },
                             { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
                           ].map((item) => (
-                            <label key={item.name} className="flex items-center space-x-2">
+                            <label key={item.name} className="flex items-center space-x-2 py-1">
                               <input
                                 type="checkbox"
                                 name={item.name}
