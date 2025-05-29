@@ -29,7 +29,7 @@ const MenuPage = () => {
       >
         <div
           className={`absolute cursor-pointer -right-3 top-9 w-7 h-7 bg-white
-           border-2 border-sky-500 rounded-full  flex items-center justify-center ${!open && "rotate-180"}`}
+           border-2 border-sky-500 rounded-full flex items-center justify-center ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         >
           <img
@@ -39,14 +39,12 @@ const MenuPage = () => {
           />
         </div>
         
-        <div className="flex gap-x-4 items-center border-b border-sky-700/50 pb-4">
-          <div className={`w-10 h-10 flex items-center justify-center`}>
-            <img
-              src="./src/assets/Sofya_logo_mini.png"
-              className="w-10 h-10 object-contain"
-              alt="Logo"
-            />
-          </div>
+        <div className="flex items-center gap-x-4 border-b border-sky-700/50 pb-4">
+          <img
+            src="./src/assets/Sofya_logo_mini.png"
+            className="w-10 h-10 object-contain"
+            alt="Logo"
+          />
           <h1
             className={`text-xl font-bold text-sky-100 origin-left duration-300 ${
               !open && "scale-0"
