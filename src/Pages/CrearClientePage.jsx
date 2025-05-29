@@ -53,6 +53,7 @@ export const AccountForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -63,12 +64,14 @@ export const AccountForm = () => {
       [name]: newValue
     }));
 
-    // Validate field on change
-    const error = validateField(name, newValue);
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
+    // Only validate if the form has been submitted once
+    if (submitted) {
+      const error = validateField(name, newValue);
+      setErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
   };
 
   const validateForm = () => {
@@ -87,6 +90,7 @@ export const AccountForm = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSubmitted(true);
   
     if (!validateForm()) {
       alert("Por favor, corrija los errores en el formulario.");
@@ -123,11 +127,11 @@ export const AccountForm = () => {
         value={formData[name] || ""}
         onChange={handleChange}
         className={`w-full px-3 py-1.5 rounded-md bg-gray-50 border text-sm
-          ${errors[name] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}
+          ${submitted && errors[name] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}
           focus:border-transparent focus:outline-none focus:ring-1 transition-all duration-200
           text-gray-900 placeholder-gray-400`}
       />
-      {errors[name] && (
+      {submitted && errors[name] && (
         <p className="mt-1 text-xs text-red-500">{errors[name]}</p>
       )}
     </div>
