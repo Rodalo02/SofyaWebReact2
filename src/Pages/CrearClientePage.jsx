@@ -235,24 +235,22 @@ export const AccountForm = () => {
                     {/* Configuración */}
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <h3 className="text-sm font-medium text-gray-900 mb-3">Configuración</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <div className="grid grid-cols-1 gap-3">
-                            {renderInput("Forma de Pago", "formaPago", "w-full")}
-                            {renderInput("Descuento", "descuento", "w-full")}
-                            {renderInput("Tipo de Venta", "tipoVenta", "w-full")}
-                            {renderInput("Tipo de Cliente", "tipoCliente", "w-full")}
-                            {renderInput("CIIU", "ciiu", "w-full")}
-                          </div>
+                      <div className="flex gap-4">
+                        <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
+                          {renderInput("Forma de Pago", "formaPago", "w-full")}
+                          {renderInput("Descuento", "descuento", "w-full")}
+                          {renderInput("Tipo de Venta", "tipoVenta", "w-full")}
+                          {renderInput("Tipo de Cliente", "tipoCliente", "w-full")}
+                          {renderInput("CIIU", "ciiu", "w-full")}
                         </div>
-                        <div className="space-y-2">
+                        <div className="w-48 flex flex-col justify-end">
                           {[
                             { label: "Cliente Extranjero", name: "extranjero" },
                             { label: "Agente de Retención", name: "agenteRetencion" },
                             { label: "Cliente Activo", name: "activo" },
                             { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
                           ].map((item) => (
-                            <label key={item.name} className="flex items-center space-x-2 py-1">
+                            <label key={item.name} className="flex items-center gap-2 py-1">
                               <input
                                 type="checkbox"
                                 name={item.name}
