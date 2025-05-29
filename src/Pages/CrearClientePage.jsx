@@ -5,83 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Save, X } from 'lucide-react';
 import { useMenu } from "../components/MenuContext";
-
-// Validation rules
-const validations = {
-  nombre: {
-    maxLength: 250,
-    required: true,
-    message: "Nombre es obligatorio y debe tener máximo 250 caracteres"
-  },
-  apPaterno: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  apMaterno: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  nombres1: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  nombres2: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  tipoDocumento: { 
-    length: 2, 
-    required: true,
-    message: "Tipo de documento debe tener exactamente 2 caracteres" 
-  },
-  numeroDocumento: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
-  correo1: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
-  correo2: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
-  correo3: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
-  direccion: { maxLength: 250, message: "Máximo 250 caracteres permitidos" },
-  pais: { length: 2, message: "País debe tener exactamente 2 caracteres" },
-  departamento: { length: 2, message: "Departamento debe tener exactamente 2 caracteres" },
-  provincia: { length: 2, message: "Provincia debe tener exactamente 2 caracteres" },
-  distrito: { length: 2, message: "Distrito debe tener exactamente 2 caracteres" },
-  ubigeo: { maxLength: 11, message: "Máximo 11 caracteres permitidos" },
-  longitud: { maxLength: 30, message: "Máximo 30 caracteres permitidos" },
-  latitud: { maxLength: 30, message: "Máximo 30 caracteres permitidos" },
-  telefono1: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
-  telefono2: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
-  contacto1: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
-  contacto2: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
-  cargo1: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
-  cargo2: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
-  formaPago: { length: 2, message: "Forma de pago debe tener exactamente 2 caracteres" },
-  descuento: { 
-    pattern: /^\d{1,10}(\.\d{1,2})?$/,
-    message: "Formato inválido. Use hasta 10 dígitos y 2 decimales"
-  },
-  tipoVenta: { length: 1, message: "Tipo de venta debe tener exactamente 1 carácter" },
-  tipoCliente: { length: 1, message: "Tipo de cliente debe tener exactamente 1 carácter" },
-  ciiu: { maxLength: 4, message: "Máximo 4 caracteres permitidos" },
-  nombreComercial: { maxLength: 120, message: "Máximo 120 caracteres permitidos" },
-  estadoSunat: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  condicionSunat: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
-  lineaCredito1: { length: 1, message: "Línea de crédito 1 debe tener exactamente 1 carácter" },
-  lineaCredito2: { 
-    pattern: /^\d{1,10}(\.\d{1,2})?$/,
-    message: "Formato inválido. Use hasta 10 dígitos y 2 decimales"
-  },
-  lineaCredito3: { maxLength: 250, message: "Máximo 250 caracteres permitidos" }
-};
-
-// Validation function
-const validateField = (name, value) => {
-  const rules = validations[name];
-  if (!rules) return null;
-
-  if (rules.required && !value) {
-    return rules.message;
-  }
-
-  if (rules.length && value && value.length !== rules.length) {
-    return rules.message;
-  }
-
-  if (rules.maxLength && value && value.length > rules.maxLength) {
-    return rules.message;
-  }
-
-  if (rules.pattern && value && !rules.pattern.test(value)) {
-    return rules.message;
-  }
-
-  return null;
-};
+import { validateField } from "../utils/validations";
 
 export const AccountForm = () => {
   const navigate = useNavigate();
@@ -150,7 +74,6 @@ export const AccountForm = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    // Validate all fields
     Object.keys(formData).forEach(fieldName => {
       const error = validateField(fieldName, formData[fieldName]);
       if (error) {
