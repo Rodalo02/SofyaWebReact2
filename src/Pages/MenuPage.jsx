@@ -25,11 +25,11 @@ const MenuPage = () => {
       <div
         className={`${
           open ? "w-72" : "w-20"
-        } min-h-screen bg-gradient-to-br from-sky-900 via-blue-800 to-sky-900 relative duration-300 shadow-2xl`}
+        } min-h-screen bg-gradient-to-b from-blue-800 to-sky-900 p-5 relative duration-300`}
       >
         <div
           className={`absolute cursor-pointer -right-3 top-9 w-7 h-7 bg-white
-           rounded-full border-2 border-blue-500 flex items-center justify-center hover:scale-110 transition-transform duration-200 ${!open && "rotate-180"}`}
+           border-2 border-sky-500 rounded-full  flex items-center justify-center ${!open && "rotate-180"}`}
           onClick={() => setOpen(!open)}
         >
           <img
@@ -39,16 +39,16 @@ const MenuPage = () => {
           />
         </div>
         
-        <div className="flex items-center gap-x-4 px-6 py-5 border-b border-blue-500/30">
-          <div className="w-12 h-12 flex items-center justify-center">
+        <div className="flex gap-x-4 items-center border-b border-sky-700/50 pb-4">
+          <div className={`w-10 h-10 flex items-center justify-center`}>
             <img
               src="./src/assets/Sofya_logo_mini.png"
-              className="w-12 h-12 object-contain"
+              className="w-10 h-10 object-contain"
               alt="Logo"
             />
           </div>
           <h1
-            className={`text-2xl font-bold bg-gradient-to-r from-blue-400 to-sky-300 bg-clip-text text-transparent origin-left duration-300 ${
+            className={`text-xl font-bold text-sky-100 origin-left duration-300 ${
               !open && "scale-0"
             }`}
           >
@@ -56,38 +56,38 @@ const MenuPage = () => {
           </h1>
         </div>
 
-        <ul className="pt-8 px-4">
+        <ul className="pt-6 space-y-2">
           {Menus.map((menu, index) => (
             <li
               key={index}
               onClick={() => menu.path && navigate(menu.path)}
               className={`
-                group flex items-center gap-x-4 cursor-pointer
-                p-4 text-sm rounded-xl
-                transition-all duration-300 ease-in-out
-                hover:bg-white/10 hover:translate-x-2
-                ${menu.gap ? "mt-9" : "mt-2"}
-                ${index === 0 ? "bg-gradient-to-r from-blue-500/20 to-transparent text-white" : "text-gray-300"}
+                flex items-center gap-x-4 cursor-pointer
+                p-3 text-sm rounded-lg
+                transition-all duration-200
+                hover:bg-white/10
+                ${menu.gap ? "mt-6" : "mt-1"}
+                ${index === 0 ? "bg-sky-800/40 text-white" : "text-sky-100"}
               `}
             >
-              <span className={`min-w-[24px] transition-colors duration-300 ${index === 0 ? "text-blue-400" : "group-hover:text-blue-400"}`}>
+              <span className={`min-w-[24px] transition-colors duration-200 ${index === 0 ? "text-sky-300" : ""}`}>
                 {menu.icon}
               </span>
               <span
                 className={`${
                   !open && "hidden"
-                } origin-left duration-200 whitespace-nowrap font-medium`}
+                } origin-left duration-200 whitespace-nowrap`}
               >
                 {menu.title}
               </span>
               
               {!open && (
                 <div className="
-                  absolute left-full rounded-md px-3 py-2 ml-6
-                  bg-sky-900 text-white text-sm
+                  absolute left-full rounded-md px-2 py-1 ml-6
+                  bg-sky-800 text-sky-100 text-sm
                   invisible opacity-20 -translate-x-3 transition-all
                   group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-                  backdrop-blur-sm bg-opacity-90 shadow-lg shadow-blue-500/20
+                  shadow-lg shadow-black/20
                 ">
                   {menu.title}
                 </div>
