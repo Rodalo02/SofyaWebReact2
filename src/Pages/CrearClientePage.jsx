@@ -245,27 +245,24 @@ export const AccountForm = () => {
                             {renderInput("CIIU", "ciiu", "w-full")}
                           </div>
                         </div>
-                        <div className="bg-white p-4 rounded-md shadow-sm">
-                          <h4 className="text-sm font-medium text-gray-900 mb-3">Opciones Adicionales</h4>
-                          <div className="space-y-2">
-                            {[
-                              { label: "Cliente Extranjero", name: "extranjero" },
-                              { label: "Agente de Retención", name: "agenteRetencion" },
-                              { label: "Cliente Activo", name: "activo" },
-                              { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
-                            ].map((item) => (
-                              <label key={item.name} className="flex items-center space-x-2">
-                                <input
-                                  type="checkbox"
-                                  name={item.name}
-                                  checked={formData[item.name]}
-                                  onChange={handleChange}
-                                  className="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
-                                />
-                                <span className="text-sm text-gray-700">{item.label}</span>
-                              </label>
-                            ))}
-                          </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          {[
+                            { label: "Cliente Extranjero", name: "extranjero" },
+                            { label: "Agente de Retención", name: "agenteRetencion" },
+                            { label: "Cliente Activo", name: "activo" },
+                            { label: "Mostrar Deuda al Facturar", name: "mostrarDeuda" },
+                          ].map((item) => (
+                            <label key={item.name} className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                name={item.name}
+                                checked={formData[item.name]}
+                                onChange={handleChange}
+                                className="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                              />
+                              <span className="text-sm text-gray-700">{item.label}</span>
+                            </label>
+                          ))}
                         </div>
                       </div>
                     </div>
