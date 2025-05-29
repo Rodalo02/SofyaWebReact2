@@ -6,6 +6,83 @@ import axios from "axios";
 import { Save, X } from 'lucide-react';
 import { useMenu } from "../components/MenuContext";
 
+// Validation rules
+const validations = {
+  nombre: {
+    maxLength: 250,
+    required: true,
+    message: "Nombre es obligatorio y debe tener máximo 250 caracteres"
+  },
+  apPaterno: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  apMaterno: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  nombres1: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  nombres2: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  tipoDocumento: { 
+    length: 2, 
+    required: true,
+    message: "Tipo de documento debe tener exactamente 2 caracteres" 
+  },
+  numeroDocumento: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
+  correo1: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
+  correo2: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
+  correo3: { maxLength: 50, message: "Máximo 50 caracteres permitidos" },
+  direccion: { maxLength: 250, message: "Máximo 250 caracteres permitidos" },
+  pais: { length: 2, message: "País debe tener exactamente 2 caracteres" },
+  departamento: { length: 2, message: "Departamento debe tener exactamente 2 caracteres" },
+  provincia: { length: 2, message: "Provincia debe tener exactamente 2 caracteres" },
+  distrito: { length: 2, message: "Distrito debe tener exactamente 2 caracteres" },
+  ubigeo: { maxLength: 11, message: "Máximo 11 caracteres permitidos" },
+  longitud: { maxLength: 30, message: "Máximo 30 caracteres permitidos" },
+  latitud: { maxLength: 30, message: "Máximo 30 caracteres permitidos" },
+  telefono1: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
+  telefono2: { maxLength: 15, message: "Máximo 15 caracteres permitidos" },
+  contacto1: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
+  contacto2: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
+  cargo1: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
+  cargo2: { maxLength: 35, message: "Máximo 35 caracteres permitidos" },
+  formaPago: { length: 2, message: "Forma de pago debe tener exactamente 2 caracteres" },
+  descuento: { 
+    pattern: /^\d{1,10}(\.\d{1,2})?$/,
+    message: "Formato inválido. Use hasta 10 dígitos y 2 decimales"
+  },
+  tipoVenta: { length: 1, message: "Tipo de venta debe tener exactamente 1 carácter" },
+  tipoCliente: { length: 1, message: "Tipo de cliente debe tener exactamente 1 carácter" },
+  ciiu: { maxLength: 4, message: "Máximo 4 caracteres permitidos" },
+  nombreComercial: { maxLength: 120, message: "Máximo 120 caracteres permitidos" },
+  estadoSunat: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  condicionSunat: { maxLength: 25, message: "Máximo 25 caracteres permitidos" },
+  lineaCredito1: { length: 1, message: "Línea de crédito 1 debe tener exactamente 1 carácter" },
+  lineaCredito2: { 
+    pattern: /^\d{1,10}(\.\d{1,2})?$/,
+    message: "Formato inválido. Use hasta 10 dígitos y 2 decimales"
+  },
+  lineaCredito3: { maxLength: 250, message: "Máximo 250 caracteres permitidos" }
+};
+
+// Validation function
+const validateField = (name, value) => {
+  const rules = validations[name];
+  if (!rules) return null;
+
+  if (rules.required && !value) {
+    return rules.message;
+  }
+
+  if (rules.length && value && value.length !== rules.length) {
+    return rules.message;
+  }
+
+  if (rules.maxLength && value && value.length > rules.maxLength) {
+    return rules.message;
+  }
+
+  if (rules.pattern && value && !rules.pattern.test(value)) {
+    return rules.message;
+  }
+
+  return null;
+};
+
 export const AccountForm = () => {
   const navigate = useNavigate();
   const { open } = useMenu();
@@ -55,17 +132,41 @@ export const AccountForm = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
+    const newValue = type === "checkbox" ? checked : value;
+    
+    setFormData(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: newValue
     }));
+
+    // Validate field on change
+    const error = validateField(name, newValue);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    // Validate all fields
+    Object.keys(formData).forEach(fieldName => {
+      const error = validateField(fieldName, formData[fieldName]);
+      if (error) {
+        newErrors[fieldName] = error;
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
   
     if (!validateForm()) {
-      alert("Error en campos.");
+      alert("Por favor, corrija los errores en el formulario.");
       return;
     }
   
@@ -87,51 +188,14 @@ export const AccountForm = () => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-  
-    if (!formData.nombre || formData.nombre.length > 250) {
-      newErrors.nombre = "Nombre es obligatorio y debe tener máximo 250 caracteres.";
-    }
-  
-    if (!formData.tipoDocumento || formData.tipoDocumento.length !== 2) {
-      newErrors.tipoDocumento = "Tipo de documento debe tener 2 caracteres.";
-    }
-  
-    if (!formData.pais || formData.pais.length !== 2) {
-      newErrors.pais = "País debe tener 2 caracteres.";
-    }
-  
-    if (!formData.tipoVenta || formData.tipoVenta.length !== 1) {
-      newErrors.tipoVenta = "Tipo de venta debe tener 1 carácter.";
-    }
-  
-    const max30Fields = [
-      "apPaterno", "apMaterno", "nombres1", "nombres2", "numeroDocumento", "correo1",
-      "correo2", "correo3", "direccion", "departamento", "provincia", "distrito",
-      "telefono1", "telefono2", "ubigeo", "longitud", "latitud", "contacto1", "contacto2",
-      "cargo1", "cargo2", "formaPago", "descuento", "tipoCliente", "ciiu",
-      "lineaCredito1", "lineaCredito2", "lineaCredito3", "nombreComercial",
-      "estadoSunat", "condicionSunat"
-    ];
-  
-    max30Fields.forEach((field) => {
-      if (formData[field] && formData[field].length > 30) {
-        newErrors[field] = `Máximo 30 caracteres permitidos.`;
-      }
-    });
-  
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const renderInput = (label, name, width = "lg:w-4/12") => (
     <div className={`w-full ${width} px-2 mb-3`}>
       <label className="block text-xs font-medium text-gray-700 mb-1">
         {label}
       </label>
       <input
-        type="text"
+        type={name.includes('descuento') || name.includes('lineaCredito2') ? 'number' : 'text'}
+        step={name.includes('descuento') || name.includes('lineaCredito2') ? '0.01' : undefined}
         name={name}
         value={formData[name] || ""}
         onChange={handleChange}
